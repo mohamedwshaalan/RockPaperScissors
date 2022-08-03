@@ -1,0 +1,59 @@
+* {
+  background-color: black;
+  margin: 0px;
+  padding: 0px;
+  font-family: Ubuntu;
+
+}
+
+.main-container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+.choice-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+  background-color: grey;
+  border-radius: 4px;
+  border-color: white;
+
+}
+
+.choice-buttons button {
+
+  color: black;
+  text-align: center;
+  margin: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 200px;
+  background-color: white;
+  border: 2px solid black;
+  transition: 0.01s;
+
+}
+
+.choice-buttons button:hover {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+}
+
+.choice-buttons button:active {
+  transform: translateY(2px);
+}
+
+#result-box {
+
+  color: white;
+  min-height: 70px;
+
+}

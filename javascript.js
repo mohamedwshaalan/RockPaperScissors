@@ -1,66 +1,98 @@
-function getComputerChoice(){
-  let randomnumber = Math.floor(Math.random()*10)
+let userScore = 0;
+let computerScore = 0;
+
+const choicebuttons = document.querySelectorAll('button');
+
+choicebuttons.forEach(button => {
+  button.addEventListener('click', function () {
+    playRound(button.className)
+  })
+})
+
+function getComputerChoice() {
+  let randomnumber = Math.floor(Math.random() * 10)
   let result = "Default"
-  if(randomnumber>=0 && randomnumber<=3){
-     result = "Paper";
+  if (randomnumber >= 0 && randomnumber <= 3) {
+    result = "Paper";
   }
-  if(randomnumber>3 && randomnumber <=6){
-     result = "Rock";
+  if (randomnumber > 3 && randomnumber <= 6) {
+    result = "Rock";
   }
-  if(randomnumber>6 && randomnumber <=9){
+  if (randomnumber > 6 && randomnumber <= 9) {
     result = "Scissors";
   }
   return result;
 }
-
-function playRound(playerselection, computerselection){
-  let result = "Default"
-  let boolresult = false
-  if(playerselection===computerselection){
-    result = "It's a " + playerselection + " Draw!"
-  }
-  if(playerselection==="Scissors" && computerselection==="Paper"){
-    result = "You win! " + playerselection + " beats " + computerselection + "!"
-    boolresult = true
-  }
-  if(playerselection==="Paper" && computerselection==="Scissors"){
-    result = "You lose! " + computerselection + " beats " + playerselection + "!"
-  }
-  if(playerselection==="Rock" && computerselection==="Scissors"){
-    result = "You win! " + playerselection + " beats " + computerselection + "!"
-    boolresult = true
-  }
-  if(playerselection==="Scissors" && computerselection==="Rock"){
-    result = "You lose! " + computerselection + " beats " + playerselection + "!"
-  }
-  if(playerselection==="Paper" && computerselection==="Rock"){
-    result = "You win! " + playerselection + " beats " + computerselection + "!"
-    boolresult = true
-  }
-  if(playerselection==="Rock" && computerselection==="Paper"){
-    result = "You lose! " + computerselection + " beats " + playerselection + "!"
-  }
-  console.log(result)
-  return boolresult;
+function endGame() {
+  choicebuttons.forEach(elem => { elem.disabled = true })
 }
-
-function fullGame(){
-
-  let userScore = 0;
-  
-  for(let i =0;i<5;i++){
-    let computerselection = getComputerChoice()
-    let playerselection = prompt("Enter your choice:")
-   if(playRound(playerselection,computerselection)===true){
+function playRound(playerselection) {
+  let result = "";
+  let computerselection = getComputerChoice();
+  if (playerselection === computerselection) {
+    result = ("It's a " + playerselection + " Draw!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+  }
+  if (playerselection === "Scissors" && computerselection === "Paper") {
     userScore++;
-   } 
-    
+    result = ("<p>You win! " + playerselection + " beats " + computerselection + "!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+
+
   }
-  if(userScore<=2){
-    console.log("The computer won the game!")
+  if (playerselection === "Paper" && computerselection === "Scissors") {
+    computerScore++;
+    result = ("<p>You lose! " + computerselection + " beats " + playerselection + "!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+
   }
-  else{
-    console.log("You won the game!")
+  if (playerselection === "Rock" && computerselection === "Scissors") {
+    userScore++;
+    result = ("<p>You win! " + playerselection + " beats " + computerselection + "!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+
+
   }
+  if (playerselection === "Scissors" && computerselection === "Rock") {
+    computerScore++;
+    result = ("<p>You lose! " + computerselection + " beats " + playerselection + "!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+
+
+  }
+  if (playerselection === "Paper" && computerselection === "Rock") {
+    userScore++;
+    result = ("<p>You win! " + playerselection + " beats " + computerselection + "!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+
+  }
+  if (playerselection === "Rock" && computerselection === "Paper") {
+    computerScore++;
+    result = ("<p>You lose! " + computerselection + " beats " + playerselection + "!"
+      + "<br>User Score: " + userScore
+      + "<br>Computer Score: " + computerScore + "</p>")
+
+  }
+  if (userScore === 5) {
+    result = "You won the game! Refresh the page to play again."
+    endGame();
+  }
+  if (computerScore === 5) {
+    result = "You lost the game! Refresh the page to play again."
+    endGame();
+  }
+
+  document.getElementById('result-box').innerHTML = result;
+  return;
 }
-fullGame();
+
+
+
+
+
